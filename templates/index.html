@@ -61,7 +61,10 @@
         </table>
 
         <br/>
+        {% if images is defined and images|length > 0 %}
         <p class="card-text">Model predicted value, as compared to the base_value for several cases:</p>
+        {% endif %}
+
 
 
         {% for item in images %}
