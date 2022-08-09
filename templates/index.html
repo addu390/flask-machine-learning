@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid" style="padding: 25px">
+    <div>
+        <h1 style="text-align: center">Big Mart ML Project</h1>
+    </div>
+
+    <hr>
+
+    <div>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <p class="card-text">Upload Train/Test dataset as "train.csv" or "test.csv"</p>
+            <input type="file" name="file" value="file">
+            <input type="submit" name="upload" value="Upload Dataset" class="btn btn-success">
+        </form>
+        {{upload_message}}
+    </div>
+
+    <hr>
+
+    <div>
+        <form action="/train_model" method="post" enctype="multipart/form-data">
+            <p class="card-text">Train and update the RF model</p>
+            <input type="text" class="form-control" placeholder="Enter Max Depth (Defaults to 10)" style="width:300px; margin-bottom: 10px">
+            <input type="text" class="form-control" placeholder="Enter Random State (Defaults to 2)" style="width:300px">
+            <br/>
+            <input type="submit" name="train" value="Train Model" class="btn btn-primary">
+        </form>
+        {{train_message}}
+    </div>
+
+    <hr>
+
+    <div>
+        <form action="/test_model" method="post" enctype="multipart/form-data">
+            <p class="card-text">Test/Predict model</p>
+            <input type="submit" name="test" value="Test Model" class="btn btn-primary">
+        </form>
+
+        <br/>
+
+        <table class="scrolldown">
+
+            {% if predictions is defined and predictions|length > 0 %}
+            <thead>
+                <tr>
+                    <th>Predicted Values</th>
+                </tr>
+            </thead>
+            {% endif %}
+
+            {% for item in predictions %}
+            <tbody>
+                <tr>
+                    <td>{{item}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+
+    <hr>
+
+    <div>
+    </div>
+
+
+</div>
+
+{% endblock %}
