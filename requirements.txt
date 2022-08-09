@@ -1,4 +1,4 @@
-Flask==2.1.2
+Flask~=2.0.1
 category-encoders==2.5.0
 plotly==5.9.0
 pandas==1.4.1
@@ -7,3 +7,7 @@ botocore==1.27.13
 seaborn==0.11.2
 category-encoders==2.5.0
 shap==0.41.0
+sklearn~=0.0
+scikit-learn~=1.0.2
+python-dotenv~=0.19.2
+werkzeug~=2.0.1
