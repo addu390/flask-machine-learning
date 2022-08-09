@@ -36,7 +36,7 @@
     <div>
         <form action="/test_model" method="post" enctype="multipart/form-data">
             <p class="card-text">Test/Predict model</p>
-            <input type="submit" name="test" value="Test Model" class="btn btn-primary">
+            <input type="submit" name="test" value="Test Model and Show Metrics" class="btn btn-primary">
         </form>
 
         <br/>
@@ -59,6 +59,14 @@
             </tbody>
             {% endfor %}
         </table>
+
+        <br/>
+        <p class="card-text">Model predicted value, as compared to the base_value for several cases:</p>
+
+
+        {% for item in images %}
+        <img width="75%" src="https://big-mart-5901.s3.ca-central-1.amazonaws.com/{{item}}.png" />
+        {% endfor %}
     </div>
 
     <hr>

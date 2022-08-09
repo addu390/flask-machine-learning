@@ -25,7 +25,7 @@ bucket_name = os.getenv('AWS_BUCKET_NAME')
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', upload_message="", train_message="", predictions=[])
+    return render_template('index.html', upload_message="", train_message="", predictions=[], images=[])
 
 
 @app.route('/upload', methods=['post'])
@@ -36,7 +36,7 @@ def upload():
             file_name = secure_filename(img.filename)
             img.save(file_name)
             s3.upload_file(Bucket=bucket_name, Filename=file_name, Key=file_name)
-    return render_template("index.html", upload_message="Upload completed!", train_message="", predictions=[])
+    return render_template("index.html", upload_message="Upload completed!", train_message="", predictions=[], images=[])
 
 
 @app.route("/train_model", methods=['POST'])
@@ -58,14 +58,15 @@ def train():
     model_pipeline.predict(train_x)
 
     save_model(model_pipeline)
-    return render_template("index.html", upload_message="", train_message="Training Completed!", predictions=[])
+    return render_template("index.html", upload_message="", train_message="Training Completed!", predictions=[], images=[])
 
 
 @app.route("/test_model", methods=['POST'])
 def test():
     result = test_model()
+    images = ["shap-1", "shap-2", "shap-3"]
 
-    return render_template("index.html", upload_message="", train_message="", predictions=result)
+    return render_template("index.html", upload_message="", train_message="", predictions=result, images=images)
 
 
 def test_model():
@@ -130,4 +131,4 @@ def save_model(model_pipeline):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=5000)
